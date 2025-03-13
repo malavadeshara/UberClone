@@ -1,15 +1,23 @@
-const userModel = require('../model/user.model');
+const userModel = require('../models/user.model');
 const userService = require('../services/user.service');
 const { validationResult } = require('express-validator');
-const BlacklistTokenModel = require('../model/blacklistToken.model');
+const BlacklistTokenModel = require('../models/blacklistToken.model');
 
 module.exports.registerUser = async (req, res, next) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
+    if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { fullname , email, password } = req.body;
+    const { fullname, email, password } = req.body;
+
+    const isUserAlreadyExist = await userModel.findOne({
+        email
+    });
+
+    if (isUserAlreadyExist) {
+        return res.status(400).json({ message: 'Captain already exists' });
+    }
 
     const hashedPassword = await userModel.hashPassword(password);
 
@@ -30,7 +38,7 @@ module.exports.registerUser = async (req, res, next) => {
 
 module.exports.loginUser = async (req, res, next) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
+    if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
@@ -38,13 +46,13 @@ module.exports.loginUser = async (req, res, next) => {
 
     const user = await userModel.findOne({ email }).select('+password');
 
-    if(!user) {
+    if (!user) {
         return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const isMatch = await user.comparePassword(password);
 
-    if(!isMatch) {
+    if (!isMatch) {
         return res.status(401).json({ message: 'Invalid email or password' });
     }
 
