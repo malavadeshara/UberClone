@@ -95,3 +95,40 @@ Logs out the current user by clearing the authentication cookie and blacklisting
       "message": "Logged out successfully"
     }
     ```
+
+# Captain Registration Endpoint Documentation
+
+### Endpoint
+**POST /captains/register**
+
+### Description
+Registers a new captain. On successful registration, returns a JSON containing a token and the captain object.
+
+### Request Body
+- **fullname**: An object with:
+  - **firstname**: string (minimum 3 characters)
+  - **lastname**: string (minimum 3 characters)
+- **email**: string (a valid email)
+- **password**: string (minimum 6 characters)
+- **vehicle**: An object with:
+  - **color**: string (minimum 3 characters)
+  - **plate**: string (minimum 3 characters)
+  - **capacity**: number (minimum 1)
+  - **type**: string (one of 'motorcycle', 'auto', 'car')
+
+### Responses
+- **201 Created**
+  - Response Body:
+    ```json
+    {
+      "token": "string",
+      "captain": { ... }
+    }
+    ```
+- **400 Bad Request**
+  - Response Body:
+    ```json
+    {
+      "errors": [ ... ]
+    }
+    ```
