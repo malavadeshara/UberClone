@@ -4,6 +4,7 @@ export const UserDataContext = createContext();
 
 const UserContext = ({children}) => {
 
+  const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState({
         email: '',
         fullName: {

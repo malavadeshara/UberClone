@@ -23,9 +23,9 @@ const CaptainSignup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const captainData = {
-      fullName: {
-        firstName: firstName,
-        lastName: lastName
+      fullname: {
+        firstname: firstName,
+        lastname: lastName
       },
       email: email,
       password: password,
@@ -40,7 +40,8 @@ const CaptainSignup = () => {
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, captainData);
 
     if(response.status === 201) {
-      setCaptain(response.data);
+      const data = response.data;
+      setCaptain(data.captain);
       localStorage.setItem('token', data.token);
       Navigate('/Captain-home');
     }
@@ -160,7 +161,7 @@ const CaptainSignup = () => {
                 }}
               >
                 <option value="" disabled>Select Vehicle Type</option>
-                <option value="Auto">Auto</option>
+                <option value="auto">Auto</option>
                 <option value="Van">Van</option>
                 <option value="Motorcycle">Motorcycle</option>
               </select>
