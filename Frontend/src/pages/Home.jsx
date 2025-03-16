@@ -67,60 +67,60 @@ const Home = () => {
     }
   }, [confirmedRidePanel]);
 
-return (
-  <div className='h-full w-full relative overflow-hidden'>
-    <img className='w-16 absolute left-5 top-5' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/2560px-Uber_logo_2018.svg.png'></img>
+  return (
+    <div className='h-full w-full relative overflow-hidden'>
+      <img className='w-16 absolute left-5 top-5' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/2560px-Uber_logo_2018.svg.png'></img>
 
-    <div className='h-screen w-screen' >
-      {/* image for temp use */}
-      <img
-        className='h-full w-full object-cover'
-        src='https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif'
-        alt='car animation gif'
-      />
-    </div>
-
-    <div className='flex flex-col justify-end h-screen absolute top-0 w-full'>
-      <div className='h-[30%] bg-white p-6 relative'>
-        <h5 ref={PanelCloseRef} className='absolute right-6 top-6 text-2xl opacity-0' onClick={() => setpanelOpen(false)}>
-          <i className="ri-arrow-down-wide-line"></i>
-        </h5>
-        <h4 className='text-2xl font-semibold'>Find a trip</h4>
-        <form onSubmit={(e) => { submitHandler(e) }}>
-          <div className='line absolute h-16 w-1 top-[45%] left-10 bg-gray-700 rounded-full'></div>
-          <input
-            className='bg-[#eee] px-10 py-2 text-lg rounded-lg w-full mt-5'
-            type='text'
-            placeholder='Add a pick-up location'
-            value={pickup}
-            onChange={(e) => setPickup(e.target.value)}
-            onClick={() => setpanelOpen(true)}
-          />
-          <input
-            className='bg-[#eee] px-10 py-2 text-lg rounded-lg w-full mt-3'
-            type='text'
-            placeholder='Add a drop-off location'
-            value={destination}
-            onChange={(e) => setdestination(e.target.value)}
-            onClick={() => setpanelOpen(true)}
-          />
-        </form>
+      <div className='h-screen w-screen' >
+        {/* image for temp use */}
+        <img
+          className='h-full w-full object-cover'
+          src='https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif'
+          alt='car animation gif'
+        />
       </div>
 
-      <div ref={PanelRef} className='bg-white h-0'>
-        <LocationSearchPanel setVehiclePanelOpen={setVehiclePanelOpen} setpanelOpen={setpanelOpen} />
+      <div className='flex flex-col justify-end h-screen absolute top-0 w-full'>
+        <div className='h-[30%] bg-white p-6 relative'>
+          <h5 ref={PanelCloseRef} className='absolute right-6 top-6 text-2xl opacity-0' onClick={() => setpanelOpen(false)}>
+            <i className="ri-arrow-down-wide-line"></i>
+          </h5>
+          <h4 className='text-2xl font-semibold'>Find a trip</h4>
+          <form onSubmit={(e) => { submitHandler(e) }}>
+            <div className='line absolute h-16 w-1 top-[45%] left-10 bg-gray-700 rounded-full'></div>
+            <input
+              className='bg-[#eee] px-10 py-2 text-lg rounded-lg w-full mt-5'
+              type='text'
+              placeholder='Add a pick-up location'
+              value={pickup}
+              onChange={(e) => setPickup(e.target.value)}
+              onClick={() => setpanelOpen(true)}
+            />
+            <input
+              className='bg-[#eee] px-10 py-2 text-lg rounded-lg w-full mt-3'
+              type='text'
+              placeholder='Add a drop-off location'
+              value={destination}
+              onChange={(e) => setdestination(e.target.value)}
+              onClick={() => setpanelOpen(true)}
+            />
+          </form>
+        </div>
+
+        <div ref={PanelRef} className='bg-white h-0'>
+          <LocationSearchPanel setVehiclePanelOpen={setVehiclePanelOpen} setpanelOpen={setpanelOpen} />
+        </div>
+      </div>
+
+      <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-14'>
+        <VehiclePanel setconfirmedRidePanel={setconfirmedRidePanel} setVehiclePanelOpen={setVehiclePanelOpen} />
+      </div>
+
+      <div ref={confirmRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-14'>
+        <ConfirmedRide setconfirmedRidePanel={setconfirmedRidePanel} />
       </div>
     </div>
-
-    <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-14'>
-      <VehiclePanel setconfirmedRidePanel={setconfirmedRidePanel} setVehiclePanelOpen={setVehiclePanelOpen} />
-    </div>
-
-    <div ref={confirmRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-14'>
-      <ConfirmedRide setconfirmedRidePanel={setconfirmedRidePanel} />
-    </div>
-  </div>
-)
+  )
 }
 
 export default Home; 
