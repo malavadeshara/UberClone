@@ -5,7 +5,7 @@ import 'remixicon/fonts/remixicon.css';
 import LocationSearchPanel from '../components/LocationSearchPanel';
 import VehiclePanel from '../components/VehiclePanel';
 import ConfirmedRide from '../components/ConfirmedRide';
-
+import LookingForDriver from '../components/LookingForDriver';
 const Home = () => {
 
   const [pickup, setPickup] = useState('');
@@ -67,6 +67,18 @@ const Home = () => {
     }
   }, [confirmedRidePanel]);
 
+  useGSAP(function () {
+    if (confirmedRidePanel) {
+      gsap.to(confirmRidePanelRef.current, {
+        transform: 'translateY(0)',
+      });
+    } else {
+      gsap.to(confirmRidePanelRef.current, {
+        transform: 'translateY(100%)',
+      });
+    }
+  }, [confirmedRidePanel]);
+  
   return (
     <div className='h-full w-full relative overflow-hidden'>
       <img className='w-16 absolute left-5 top-5' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Uber_logo_2018.svg/2560px-Uber_logo_2018.svg.png'></img>
@@ -112,12 +124,16 @@ const Home = () => {
         </div>
       </div>
 
-      <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-14'>
+      <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12'>
         <VehiclePanel setconfirmedRidePanel={setconfirmedRidePanel} setVehiclePanelOpen={setVehiclePanelOpen} />
       </div>
 
-      <div ref={confirmRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-14'>
+      <div ref={confirmRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
         <ConfirmedRide setconfirmedRidePanel={setconfirmedRidePanel} />
+      </div>
+
+      <div className='fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12'>
+        <LookingForDriver />
       </div>
     </div>
   )
